@@ -6,6 +6,9 @@ import InputPublico from "../../componentes/inputPublico";
 import { useState } from "react";
 import UploadImagem from "../../componentes/uploadImagem";
 import {validarNome,validarEmail, validarSenha, validarConfirmacaoSenha} from "../../utils/validadores"
+import UsuarioService from "../../servives/UsuarioServices";
+
+const usuariarioService= new UsuarioService();
 
 import imagemLogo from "../../public/imagens/logo.svg";
 import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";
@@ -31,6 +34,9 @@ export default function Cadastro(){
             validarEmail(email)
         );
     }
+
+
+    
 
     return(
         <section className="paginaCadastro paginaPublica">  
