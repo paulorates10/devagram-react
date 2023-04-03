@@ -1,12 +1,15 @@
 import HttpService from "./HttpService";
 
 export default class UsuarioService extends HttpService{
-    async login(){
+    async login(usuario, senha){
 
     }
 
-    async cadastro(){
-        return this.post('/cadastro',dados)
+    async cadastro(dados){
+        return this.post('/cadastro', dados);
+
     }
+
+
 
 }

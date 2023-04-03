@@ -25,6 +25,7 @@ export default function Cadastro(){
     const [email,setEmail]= useState("");
     const [senha,setSenha]= useState("");
     const [confirmacaoSenha,setConfirmacaoSenha]= useState("");
+    const [estaSubmetendo, setEstaSubmetendo]= useState(false);
 
     const validarFormulario=()=>{
         return(
@@ -35,7 +36,34 @@ export default function Cadastro(){
         );
     }
 
+    const aoSubmeter= async(e)=>{
+        
+        e.preventDefault();
+        if(!validarFormulario()){
+            return;
+        }
 
+        setEstaSubmetendo(true);
+
+        try{
+            const corpoReqCadastro= new FormData();
+            corpoReqCadastro.append("nome",nome);
+            corpoReqCadastro.append("email",email);
+            corpoReqCadastro.append("senha",senha);
+            if (imagem?.arquivo){
+                corpoReqCadastro.append("file",imagem.arquivo);
+            }
+
+            await usuariarioService.cadastro(corpoReqCadastro);
+            alert("secesso!");
+
+        }catch(error){
+            alert("Erro ao cadastrar usuario"+ error?.response?.data?.erro);
+        }
+
+        setEstaSubmetendo(false);
+
+    }
     
 
     return(
@@ -52,7 +80,7 @@ export default function Cadastro(){
 
                 <div className="conteudoPaginaPublica">
 
-                    <form>
+                    <form onSubmit={aoSubmeter}>
 
                         <UploadImagem
                             imagemPreviewClassName="avatar avatarPreview"
@@ -106,7 +134,7 @@ export default function Cadastro(){
                         <Botao
                             texto="Cadastrar"
                             tipo="submit"
-                            disabilitado={!validarFormulario()}
+                            disabilitado={!validarFormulario() || estaSubmetendo}
                         />
 
                     </form>
