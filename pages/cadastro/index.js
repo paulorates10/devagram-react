@@ -58,7 +58,7 @@ export default function Cadastro(){
             alert("secesso!");
 
         }catch(error){
-            alert("Erro ao cadastrar usuario"+ error?.response?.data?.erro);
+            alert("Erro ao cadastrar usuario: "+ error?.response?.data?.erro);
         }
 
         setEstaSubmetendo(false);
@@ -72,7 +72,6 @@ export default function Cadastro(){
                     <Image 
                         src={imagemLogo}
                         alt="logotipo"
-                        layout="fill"
                         className="logo"
                     />
 
