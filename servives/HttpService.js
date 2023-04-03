@@ -8,7 +8,7 @@ export default class HttpService{
         });
     }
 
-    post(url,data){
+    post(url, data) {
         return this.axios.post(url,data);
     }
 

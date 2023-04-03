@@ -6,9 +6,8 @@ import InputPublico from "../../componentes/inputPublico";
 import { useState } from "react";
 import UploadImagem from "../../componentes/uploadImagem";
 import {validarNome,validarEmail, validarSenha, validarConfirmacaoSenha} from "../../utils/validadores"
-import UsuarioService from "../../servives/UsuarioServices";
+import UsuarioService from "../../servives/UsuarioService";
 
-const usuariarioService= new UsuarioService();
 
 import imagemLogo from "../../public/imagens/logo.svg";
 import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";
@@ -17,6 +16,7 @@ import imagemChave from "../../public/imagens/chave.svg";
 import imagemAvatar from "../../public/imagens/avatar.svg";
 
 
+const usuarioService= new UsuarioService();
 
 export default function Cadastro(){
 
@@ -51,11 +51,12 @@ export default function Cadastro(){
             corpoReqCadastro.append("email",email);
             corpoReqCadastro.append("senha",senha);
             if (imagem?.arquivo){
-                corpoReqCadastro.append("file",imagem.arquivo);
+                corpoReqCadastro.append("file", imagem.arquivo);
             }
 
-            await usuariarioService.cadastro(corpoReqCadastro);
+            await usuarioService.cadastro(corpoReqCadastro);
             alert("secesso!");
+            //TODO: autenticar o usuario diretamente apos o cadastro
 
         }catch(error){
             alert("Erro ao cadastrar usuario: "+ error?.response?.data?.erro);

@@ -16,5 +16,5 @@ export default function Avatar({src}){
             alt='Avatar'
             className='avatar'
         />
-    )
+    );
 }
