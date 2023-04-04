@@ -1,7 +1,7 @@
 import InputPublico from "../inputPublico";
 import Image from "next/image";
 import Botao from "../botao";
-import UsuarioService from "../../servives/UsuarioService"
+import UsuarioService from "../../services/UsuarioService"
 
 import imagemEnvelope from "../../public/imagens/envelope.svg";
 import imagenChave from "../../public/imagens/chave.svg";

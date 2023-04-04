@@ -1,4 +1,4 @@
-import UsuarioService from "@/servives/UsuarioService";
+import UsuarioService from "@/services/UsuarioService";
 import { useRouter } from "next/router";
 import Cabecalho from "../componentes/layout/Cabecalho";
 import Rodape from "../componentes/layout/Rodape"

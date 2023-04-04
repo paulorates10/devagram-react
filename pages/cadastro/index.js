@@ -6,7 +6,7 @@ import InputPublico from "../../componentes/inputPublico";
 import { useState } from "react";
 import UploadImagem from "../../componentes/uploadImagem";
 import {validarNome,validarEmail, validarSenha, validarConfirmacaoSenha} from "../../utils/validadores"
-import UsuarioService from "../../servives/UsuarioService";
+import UsuarioService from "../../services/UsuarioService";
 
 
 import imagemLogo from "../../public/imagens/logo.svg";

@@ -5,40 +5,31 @@ import imagemLupa from '../../public/imagens/lupa.svg';
 import Navegacao from '../layout/Navegacao';
 import { useState } from 'react';
 import ResultadoPesquisa from './resultadoPesquisa';
+import UsuarioService from '@/services/UsuarioService';
+
+const usuarioService= new UsuarioService();
 
 
 export default function Cabecalho(){
     const [resultadoPesquisa, setResultadoPesquisa]= useState([]);
-    const [termoPesquisado, setTermoPesquisado]=useState([]);
+    const [termoPesquisado, setTermoPesquisado]=useState('');
 
-    const aoPesquisar=(e)=>{
+    const aoPesquisar=async(e)=>{
         setTermoPesquisado(e.target.value);
         setResultadoPesquisa([]);
 
-        if(termoPesquisado.length<3){
+        if(termoPesquisado.length<2){
             return;
         }
 
-        setResultadoPesquisa([
-            {   
-                avatar: '',
-                nome:'Paulo',
-                email: 'paulo_rates@Hotmail.com',
-                _id:'123456'
-            },
-            {   
-                avatar: '',
-                nome:'Daniel',
-                email: 'daniel@Hotmail.com',
-                _id:'1234567'
-            },
-            {   
-                avatar: '',
-                nome:'Rafael',
-                email: 'rafael@Hotmail.com',
-                _id:'1234568'
-            }
-        ])
+        try{
+            const {data}= await usuarioService.pesquisar(termoPesquisado);
+            setResultadoPesquisa(data);
+
+        }catch(error){
+            alert('Erro ao pesquisar usuario: ' + error?.response?.data?.erro);
+        }
+    
     
     }
 
