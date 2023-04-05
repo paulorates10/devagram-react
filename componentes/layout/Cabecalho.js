@@ -6,6 +6,7 @@ import Navegacao from '../layout/Navegacao';
 import { useState } from 'react';
 import ResultadoPesquisa from './resultadoPesquisa';
 import UsuarioService from '@/services/UsuarioService';
+import { useRouter } from 'next/router';
 
 const usuarioService= new UsuarioService();
 
@@ -13,12 +14,13 @@ const usuarioService= new UsuarioService();
 export default function Cabecalho(){
     const [resultadoPesquisa, setResultadoPesquisa]= useState([]);
     const [termoPesquisado, setTermoPesquisado]=useState('');
+    const router = useRouter();
 
     const aoPesquisar=async(e)=>{
         setTermoPesquisado(e.target.value);
         setResultadoPesquisa([]);
 
-        if(termoPesquisado.length<2){
+        if(termoPesquisado.length < 3){
             return;
         }
 
@@ -33,8 +35,14 @@ export default function Cabecalho(){
     
     }
 
-    const aoClicarResultadoPesquisa=(id)=>{
-        console.log('aoClicarResultadoPesquisa',{id})          
+    const aoClicarResultadoPesquisa = (id) => {
+        setResultadoPesquisa([]);
+        setTermoPesquisado('');
+        router.push(`/perfil/${id}`);
+    }
+
+    const redirecionarParaHome=()=>{
+        router.push('/');
     }
 
     return(
@@ -42,6 +50,7 @@ export default function Cabecalho(){
             <div className='conteudoCabecalhoPrincipal'>
                 <div className='logoCabecalhoPrincipal'>
                     <Image
+                        onClick={redirecionarParaHome}
                         src={logoHorizontalImg}
                         alt='logo devagram'                       
                     />
@@ -76,7 +85,7 @@ export default function Cabecalho(){
                             email={r.email}
                             key={r._id}
                             id={r.id}
-                            onClik={aoClicarResultadoPesquisa}
+                            onClick={aoClicarResultadoPesquisa}
                         />
                     ))}
                 </div>
