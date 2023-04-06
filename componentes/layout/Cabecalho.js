@@ -1,38 +1,38 @@
-
 import Image from 'next/image';
+import { useState } from 'react';
 import logoHorizontalImg from '../../public/imagens/logoHorizontal.svg';
 import imagemLupa from '../../public/imagens/lupa.svg';
-import Navegacao from '../layout/Navegacao';
-import { useState } from 'react';
-import ResultadoPesquisa from './resultadoPesquisa';
-import UsuarioService from '@/services/UsuarioService';
+import Navegacao from './Navegacao';
+import ResultadoPesquisa from './ResultadoPesquisa';
+import UsuarioService from '../../services/UsuarioService';
 import { useRouter } from 'next/router';
 
-const usuarioService= new UsuarioService();
+const usuarioService = new UsuarioService();
 
-
-export default function Cabecalho(){
-    const [resultadoPesquisa, setResultadoPesquisa]= useState([]);
-    const [termoPesquisado, setTermoPesquisado]=useState('');
+export default function Cabecalho() {
+    const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
+    const [termoPesquisado, setTermoPesquisado] = useState('');
     const router = useRouter();
 
-    const aoPesquisar=async(e)=>{
+    let cabecalhoClassName = '';
+    if (window && window.location.pathname !== '/') {
+        cabecalhoClassName = 'desktop';
+    }
+
+    const aoPesquisar = async (e) => {
         setTermoPesquisado(e.target.value);
         setResultadoPesquisa([]);
 
-        if(termoPesquisado.length < 3){
+        if (e.target.value.length < 3) {
             return;
         }
 
-        try{
-            const {data}= await usuarioService.pesquisar(termoPesquisado);
+        try {
+            const { data } = await usuarioService.pesquisar(termoPesquisado);
             setResultadoPesquisa(data);
-
-        }catch(error){
-            alert('Erro ao pesquisar usuario: ' + error?.response?.data?.erro);
+        } catch (e) {
+            alert('Erro ao pesquisar usuario. ' + e?.response?.data?.erro);
         }
-    
-    
     }
 
     const aoClicarResultadoPesquisa = (id) => {
@@ -41,26 +41,28 @@ export default function Cabecalho(){
         router.push(`/perfil/${id}`);
     }
 
-    const redirecionarParaHome=()=>{
+    const redirecionarParaHome = () => {
         router.push('/');
     }
 
-    return(
-        <header className='cabecalhoPrincipal'>
+    return (
+        <header className={`cabecalhoPrincipal ${cabecalhoClassName}`}>
             <div className='conteudoCabecalhoPrincipal'>
                 <div className='logoCabecalhoPrincipal'>
                     <Image
                         onClick={redirecionarParaHome}
                         src={logoHorizontalImg}
-                        alt='logo devagram'                       
+                        alt='logo devagram'
+                       
                     />
-
                 </div>
+
                 <div className='barraPesquisa'>
                     <div className='containerImagemLupa'>
                         <Image
                             src={imagemLupa}
-                            alt='logo devagram'
+                            alt='Icone lupa'
+                            
                         />
                     </div>
 
@@ -72,25 +74,23 @@ export default function Cabecalho(){
                     />
                 </div>
 
-                <Navegacao className='desktop'/>
-
+                <Navegacao className='desktop' />
             </div>
-            
-            {resultadoPesquisa.length>0 && (                
+
+            {resultadoPesquisa.length > 0 && (
                 <div className='resultadoPesquisaContainer'>
-                    {resultadoPesquisa.map(r=>(
+                    {resultadoPesquisa.map(r => (
                         <ResultadoPesquisa
                             avatar={r.avatar}
                             nome={r.nome}
                             email={r.email}
                             key={r._id}
-                            id={r.id}
+                            id={r._id} // estava id antes
                             onClick={aoClicarResultadoPesquisa}
                         />
                     ))}
                 </div>
             )}
         </header>
-
     );
 }

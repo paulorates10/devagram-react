@@ -60,7 +60,6 @@ export default function Login({aposAutenticacao}) {
                 <Image 
                     src={imagemLogo}
                     alt="logotipo"
-                    layout="fill"
                     className="logo"
                 />
 
