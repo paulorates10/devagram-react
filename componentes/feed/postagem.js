@@ -28,12 +28,12 @@ export default function Postagem({
     }
 
     const descricaoMaiorQueLimite=()=>{
-        return descricao.length>tamanhoLimiteDescricao;
+        return descricao.length>tamanhoAtualDaDescricao;
     }
 
     const obterDescricao=()=>{
         let mensagem= descricao.substring(0, tamanhoAtualDaDescricao);
-        if(descricao.length > tamanhoLimiteDescricao){
+        if(descricaoMaiorQueLimite()){
             mensagem += '...';  //+= concatena a menssagem mais o 3 pontinhos
         }
         return mensagem;

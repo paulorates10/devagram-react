@@ -46,6 +46,13 @@
             p.descricao{
                 font-size: 12px;
                 margin: 0 0 2px;
+                color: $cinza4;
+
+                .exibirDescricoCompleta{
+                    font-size: 12px;
+                    color: $corPrimaria3;
+                    margin-left: 4px;
+                }
             }
 
             .acoesDaPostagem{
