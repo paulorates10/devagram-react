@@ -39,7 +39,11 @@ export function Feed({usuarioLogado}){
     return ( 
         <div className="feedContainer largura30pctDesktop">
             {listaDePostagens.map(dadosPostagem => (
-                <Postagem key={dadosPostagem.id} {...dadosPostagem} />
+                <Postagem 
+                    key={dadosPostagem.id} 
+                    {...dadosPostagem}
+                    usuarioLogado={usuarioLogado}
+                     />
             ))}
         </div> 
       
