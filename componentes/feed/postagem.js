@@ -22,7 +22,8 @@ export default function Postagem({
     fotoDoPost,
     descricao,
     comentarios,
-    usuarioLogado
+    usuarioLogado,
+    curtidas
 
 }){
     const [comentariosPostagem, setComentariosPostagem]=useState(comentarios);
@@ -71,6 +72,14 @@ export default function Postagem({
         }        
     }
 
+    const alterarCurtida=()=>{
+        try{
+
+        }catch(e){
+
+        }
+    }
+
     return(
         <div className="postagem">
             <Link href={`/perfil/${usuario.id}`}>
@@ -86,11 +95,11 @@ export default function Postagem({
             <div className="rodapeDaPostagem">
                 <div className="acoesDaPostagem">
                     <Image
-                        src={imgCurtir}
+                        src={imgCurtir}                        
                         alt='icone curtir'
                         width={20}
                         height={20}
-                        onClick={()=> console.log('curtir')}
+                        onClick={alterarCurtida}
                     />
                     <Image
                         src={obterImagemComentario()}
@@ -100,7 +109,7 @@ export default function Postagem({
                         onClick={()=> setDeveExibirSecaoParaComentar(!deveExibirSecaoParaComentar)}
                     />
                     <span className="quantidaDeCutidas">
-                        Curtido por <strong> 32 pessoas </strong>
+                        Curtido por <strong> {curtidas.length} </strong>
                     </span>
                 </div>
                    

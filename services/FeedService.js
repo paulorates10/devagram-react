@@ -1,7 +1,6 @@
 import HttpService from "./HttpService";
 
-
-export default class FeedService extends HttpService{
+export default class FeedService extends HttpService {
     async carregarPostagens(idUsuario) {
         let url = '/feed';
         if (idUsuario) {
@@ -16,5 +15,4 @@ export default class FeedService extends HttpService{
             comentario
         });
     }
-
 }
