@@ -3,6 +3,7 @@ import Avatar from "../avatar";
 import Image from "next/image";
 import { useState } from "react";
 import {FazerComentario} from "./FazerComentario";
+import FeedService from "@/services/FeedService";
 
 
 import imgCurtir from "../../public/imagens/curtir.svg";
@@ -11,10 +12,12 @@ import imgComentarioAtivo from "../../public/imagens/comentarioAtivo.svg";
 import imgComentarioCinza from "../../public/imagens/comentarioCinza.svg";
 
 
+
 const tamanhoLimiteDescricao=90;
+const feedService= new FeedService();
 
 export default function Postagem({
-
+    id,
     usuario,
     fotoDoPost,
     descricao,
@@ -22,6 +25,7 @@ export default function Postagem({
     usuarioLogado
 
 }){
+    const [comentariosPostagem, setComentariosPostagem]=useState(comentarios);
     const [deveExibirSecaoParaComentar,setDeveExibirSecaoParaComentar]= useState(false);
     const [tamanhoAtualDaDescricao,setTamanhoAtualDaDescricao]=useState(
         tamanhoLimiteDescricao
@@ -38,11 +42,35 @@ export default function Postagem({
     const obterDescricao=()=>{
         let mensagem= descricao.substring(0, tamanhoAtualDaDescricao);
         if(descricaoMaiorQueLimite()){
-            mensagem += '...';  //+= concatena a menssagem mais o 3 pontinhos
+            mensagem += '...';  //+= concatena a mensagem mais o 3 pontinhos
         }
         return mensagem;
     }
     
+    const obterImagemComentario= ()=>{
+        return deveExibirSecaoParaComentar
+            ? imgComentarioAtivo
+            : imgComentarioCinza; 
+    }
+
+    const comentar= async (comentario)=>{
+        
+        try{
+            await feedService.adicionarComentario(id, comentario);
+            setDeveExibirSecaoParaComentar(false);          
+            setComentariosPostagem([
+                ...comentariosPostagem,
+                {
+                    nome: usuarioLogado.nome,
+                    mensagem: comentario
+                }
+            ]);
+        }catch(e){
+            console.log(e);
+            alert(`Erro ao fazer comentario: `+ (e?.response?.data?.erro|| ''));            
+        }        
+    }
+
     return(
         <div className="postagem">
             <Link href={`/perfil/${usuario.id}`}>
@@ -65,7 +93,7 @@ export default function Postagem({
                         onClick={()=> console.log('curtir')}
                     />
                     <Image
-                        src={imgComentarioCinza}
+                        src={obterImagemComentario()}
                         alt='icone comentar'
                         width={20}
                         height={20}
@@ -91,7 +119,7 @@ export default function Postagem({
                 </div>                
                 <div className="comentariosDaPublicacao">
                         
-                        {comentarios.map((comentario, i)=>(
+                        {comentariosPostagem.map((comentario, i)=>(
                             <div className="comentario" key={i}>
                                 <strong className="nomeUsuario">{comentario.nome}</strong>
                                 <p className="descricao">{comentario.mensagem}</p>
@@ -102,7 +130,7 @@ export default function Postagem({
             </div>
 
             {deveExibirSecaoParaComentar &&
-                <FazerComentario usuarioLogado={usuarioLogado} />
+                <FazerComentario comentar={comentar} usuarioLogado={usuarioLogado} />
                
             }
 
