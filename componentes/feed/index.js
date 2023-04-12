@@ -8,16 +8,34 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
     const [listaDePostagens, setListaDePostagens] = useState([]);
 
     useEffect(async () => {
-        setListaDePostagens([]);
+        
         const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
 
-        const postagensFormatadas = data.map((postagem) => (
+        // const postagensFormatadas = data.map((postagem) => (
+        //     {
+        //         id: postagem._id,
+        //         usuario: {
+        //             id: postagem.userId,
+        //             nome: postagem?.usuario?.nome || usuarioPerfil?.nome,
+        //             avatar: postagem?.usuario?.avatar || usuarioPerfil?.avatar
+        //         },
+        //         fotoDoPost: postagem.foto,
+        //         descricao: postagem.descricao,
+        //         curtidas: postagem.likes,
+        //         comentarios: postagem.comentarios.map(c => ({
+        //             nome: c.nome,
+        //             mensagem: c.comentario
+        //         }))
+        //     }
+        // ));
+
+        const postagensFormatadas = (postagem) => (
             {
-                id: postagem._id,
+                id: '1',
                 usuario: {
-                    id: postagem.userId,
-                    nome: postagem?.usuario?.nome || usuarioPerfil?.nome,
-                    avatar: postagem?.usuario?.avatar || usuarioPerfil?.avatar
+                    id: '2',
+                    nome:  'paulo',
+                    avatar: null
                 },
                 fotoDoPost: postagem.foto,
                 descricao: postagem.descricao,
@@ -27,7 +45,7 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
                     mensagem: c.comentario
                 }))
             }
-        ));
+        );
 
         setListaDePostagens(postagensFormatadas);
     }, [usuarioLogado, usuarioPerfil]);

@@ -26,6 +26,7 @@ export default function Postagem({
     curtidas
 
 }){
+    const [curtidasPostagem, setCurtidasPostagem]=useState(curtidas)
     const [comentariosPostagem, setComentariosPostagem]=useState(comentarios);
     const [deveExibirSecaoParaComentar,setDeveExibirSecaoParaComentar]= useState(false);
     const [tamanhoAtualDaDescricao,setTamanhoAtualDaDescricao]=useState(
@@ -54,11 +55,10 @@ export default function Postagem({
             : imgComentarioCinza; 
     }
 
-    const comentar= async (comentario)=>{
-        
-        try{
+    const comentar = async (comentario) => {
+        try {
             await feedService.adicionarComentario(id, comentario);
-            setDeveExibirSecaoParaComentar(false);          
+            setDeveExibirSecaoParaComentar(false);
             setComentariosPostagem([
                 ...comentariosPostagem,
                 {
@@ -66,18 +66,40 @@ export default function Postagem({
                     mensagem: comentario
                 }
             ]);
-        }catch(e){
-            console.log(e);
-            alert(`Erro ao fazer comentario: `+ (e?.response?.data?.erro|| ''));            
-        }        
+        } catch (e) {
+            alert(`Erro ao fazer comentario! ` + (e?.response?.data?.erro || ''));
+        }
     }
 
-    const alterarCurtida=()=>{
+    const usuarioLogadoCurtiuPostagem=()=>{
+        return curtidasPostagem.includes(usuarioLogado.id);
+    }
+
+
+    const alterarCurtida=async ()=>{
         try{
-
+            await feedService.alterarCurtida(id);          
+            if(usuarioLogadoCurtiuPostagem()){
+                // tiro o usuario logado da lista de curtidas
+                setComentariosPostagem(
+                    curtidasPostagem.filter(idUsuarioQueCurtiu=> idUsuarioQueCurtiu!== usuarioLogado.id)
+                );
+            }else{
+                // add o usuario logado na lista de curtidas
+                setComentariosPostagem([
+                    ...curtidasPostagem,
+                    usuarioLogado.id
+                ]);
+            }
         }catch(e){
-
+            alert(`Erro ao fazer comentario: `+ (e?.response?.data?.erro|| ''));
         }
+    }
+
+    const obterImagemCurtida=()=>{
+        return usuarioLogadoCurtiuPostagem()
+            ? imgCurtido
+            : imgCurtir
     }
 
     return(
@@ -95,7 +117,7 @@ export default function Postagem({
             <div className="rodapeDaPostagem">
                 <div className="acoesDaPostagem">
                     <Image
-                        src={imgCurtir}                        
+                        src={obterImagemCurtida}                        
                         alt='icone curtir'
                         width={20}
                         height={20}
@@ -109,7 +131,7 @@ export default function Postagem({
                         onClick={()=> setDeveExibirSecaoParaComentar(!deveExibirSecaoParaComentar)}
                     />
                     <span className="quantidaDeCutidas">
-                        Curtido por <strong> {curtidas.length} </strong>
+                        Curtido por <strong> {curtidasPostagem.length} </strong>
                     </span>
                 </div>
                    
