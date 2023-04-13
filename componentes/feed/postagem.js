@@ -96,10 +96,10 @@ export default function Postagem({
         }
     }
 
-    const obterImagemCurtida=()=>{
+    const obterImagemCurtida = () => {
         return usuarioLogadoCurtiuPostagem()
             ? imgCurtido
-            : imgCurtir
+            : imgCurtir;
     }
 
     return(
@@ -117,7 +117,7 @@ export default function Postagem({
             <div className="rodapeDaPostagem">
                 <div className="acoesDaPostagem">
                     <Image
-                        src={obterImagemCurtida}                        
+                        src={obterImagemCurtida()}                        
                         alt='icone curtir'
                         width={20}
                         height={20}
