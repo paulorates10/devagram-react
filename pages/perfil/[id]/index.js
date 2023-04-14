@@ -29,7 +29,7 @@ function Perfil ({usuarioLogado}){
                 return;
             }
 
-            const dadosPerfil=await obterPerfil(router.query.id);
+            const dadosPerfil = await obterPerfil(router.query.id);
             setUsuario(dadosPerfil);
             
         }
