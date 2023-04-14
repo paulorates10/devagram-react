@@ -17,8 +17,10 @@ function Perfil ({usuarioLogado}){
             setUsuario({
                 nome: 'Nome Teste'
             });
+            
         }
         pegarRepos();
+        console.log('passando aqui 1');
     },[router.query.id]);
 
     return(
