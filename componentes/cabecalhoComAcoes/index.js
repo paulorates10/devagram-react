@@ -2,24 +2,25 @@ import Image from 'next/image';
 
 export default function CabecalhoComAcoes({
     className,
-    iconeEsquerda,
-    textoEsquerda=null,
+    iconeEquerda,
+    textoEsquerda = null,
     aoClicarAcaoEsquerda,
     titulo,
-    elementoDireita
-}){
-    return(
+    elementoDireita,
+    aoClicarElementoDireita
+}) {
+    return (
         <div className={`cabecalhoComAcoes ${className}`}>
-            {iconeEsquerda ? (
+            {iconeEquerda ? (
                 <Image
-                    src={iconeEsquerda}
-                    alt='icone esquerda cabecalho com acoes'
+                    src={iconeEquerda}
+                    alt='icone esquerda cabeçalho com ações'
                     onClick={aoClicarAcaoEsquerda}
                     width={25}
                     height={25}
                 />
-            ):(
-                textoEsquerda!== null && (
+            ) : (
+                textoEsquerda !== null && (
                     <span className="cabecalhoComAcoesTextoEsquerda" onClick={aoClicarAcaoEsquerda}>
                         {textoEsquerda}
                     </span>
@@ -27,12 +28,14 @@ export default function CabecalhoComAcoes({
             )}
 
             <h3>{titulo}</h3>
-           
+
             {elementoDireita && (
-                <button 
+                <button
                     type='button'
+                    className='btnAcaoDireita'
+                    onClick={aoClicarElementoDireita}
                 >
-                    {elementoDireita}                    
+                    {elementoDireita}
                 </button>
             )}
         </div>

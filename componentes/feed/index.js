@@ -8,7 +8,7 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
     const [listaDePostagens, setListaDePostagens] = useState([]);
 
     useEffect(() => {
-  
+        setListaDePostagens([]);
         async function pegarRepos(){
             const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
 
@@ -36,20 +36,24 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
         pegarRepos();
     }, [usuarioLogado, usuarioPerfil]);
 
+ 
     if (!listaDePostagens.length) {
         return null;
     }
 
     return (
         <div className="feedContainer largura30pctDesktop">
-            {listaDePostagens.map(dadosPostagem => (
+            {listaDePostagens.length? (
+                listaDePostagens.map(dadosPostagem => (
                     <Postagem
                         key={dadosPostagem.id}
                         {...dadosPostagem}
                         usuarioLogado={usuarioLogado}
                     />
                 ))
-            }
+            ):(
+                <span> Nenhuma postagem...</span>
+            )}
         </div>
     )
 }

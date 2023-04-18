@@ -1,15 +1,12 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-
-import imgHomeCinza from '../../public/imagens/homeCinza.svg';
+import { useState, useEffect } from 'react';
 import imgHomeAtivo from '../../public/imagens/homeAtivo.svg';
-import imgPublicacaoCinza from '../../public/imagens/publicacaoCinza.svg';
+import imgHomeCinza from '../../public/imagens/homeCinza.svg';
 import imgPublicacaoAtivo from '../../public/imagens/publicacaoAtivo.svg';
-import imgUsuarioCinza from '../../public/imagens/usuarioCinza.svg';
+import imgPublicacaoCinza from '../../public/imagens/publicacaoCinza.svg';
 import imgUsuarioAtivo from '../../public/imagens/usuarioAtivo.svg';
-
+import imgUsuarioCinza from '../../public/imagens/usuarioCinza.svg';
 
 const mapaDeRotas = {
     home: {
@@ -29,16 +26,14 @@ const mapaDeRotas = {
     }
 }
 
-
-export default function Navegacao({className}){
-
-    const [rotaAtiva, setRotaAtiva]= useState('home');
-    const router= useRouter();
+export default function Navegacao({ className }) {
+    const [rotaAtiva, setRotaAtiva] = useState('home');
+    const router = useRouter();
 
     useEffect(() => {
         definirRotaAtiva();
     }, [router.asPath]);
-
+    
     const definirRotaAtiva = () => {
         const chavesDoMapaDeRotas = Object.keys(mapaDeRotas);
         const indiceAtivo = chavesDoMapaDeRotas.findIndex(chave => {
@@ -54,23 +49,25 @@ export default function Navegacao({className}){
         }
     }
 
-    const obterImagem=(nomeRota)=>{
-        const rotaAtivada=mapaDeRotas[nomeRota];
-        if(rotaAtiva=== nomeRota){
+    const obterImagem = (nomeRota) => {
+        const rotaAtivada = mapaDeRotas[nomeRota];
+
+        if (rotaAtiva === nomeRota) {
             return rotaAtivada.imagemAtivo;
         }
+
         return rotaAtivada.imagemPadrao;
     }
 
-    const aoClicarNoIcone = (nomeRota)=>{
+    const aoClicarNoIcone = (nomeRota) => {
         setRotaAtiva(nomeRota);
         router.push(mapaDeRotas[nomeRota].rotasAtivacao[0])
     }
-    
+
     return (
         <nav className={`barraNavegacao ${className}`}>
             <ul>
-                <li onClick={()=>aoClicarNoIcone('home')}>
+                <li onClick={() => aoClicarNoIcone('home')}>
                     <Image
                         src={obterImagem('home')}
                         alt='icone home'
@@ -78,7 +75,8 @@ export default function Navegacao({className}){
                         height={20}
                     />
                 </li>
-                <li onClick={()=>aoClicarNoIcone('publicacao')}>
+
+                <li onClick={() => aoClicarNoIcone('publicacao')}>
                     <Image
                         src={obterImagem('publicacao')}
                         alt='icone publicacao'
@@ -86,7 +84,8 @@ export default function Navegacao({className}){
                         height={20}
                     />
                 </li>
-                <li onClick={()=>aoClicarNoIcone('perfil')}>
+
+                <li onClick={() => aoClicarNoIcone('perfil')}>
                     <Image
                         src={obterImagem('perfil')}
                         alt='icone usuario'
@@ -94,7 +93,6 @@ export default function Navegacao({className}){
                         height={20}
                     />
                 </li>
-                
             </ul>
         </nav>
     );

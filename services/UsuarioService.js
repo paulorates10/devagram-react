@@ -1,7 +1,6 @@
 import HttpService from "./HttpService";
 
-
-export default class UsuarioService extends HttpService{
+export default class UsuarioService extends HttpService {
     async login(credenciais) {
         const { data } = await this.post('/login', credenciais);
 
@@ -17,13 +16,24 @@ export default class UsuarioService extends HttpService{
         }
     }
 
-    async cadastro(dados){
-        return this.post('/cadastro', dados);
-
+    async logout() {
+        localStorage.removeItem("nome");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("avatar");
     }
-    
-    estaAutenticado(){
-        return localStorage.getItem('token')!== null;
+
+    async cadastro(dados) {
+        return this.post('/cadastro', dados);
+    }
+
+    async atualizarPerfil(dados) {
+        return this.put(`/usuario`, dados);
+    }
+
+    estaAutenticado() {
+        return localStorage.getItem('token') !== null;
     }
 
     async pesquisar(termoDaPesquisa) {
@@ -33,7 +43,11 @@ export default class UsuarioService extends HttpService{
     async obterPerfil(idUsuario) {
         return this.get(`/pesquisa?id=${idUsuario}`);
     }
-    
+
+    async alternarSeguir(idUsuario) {
+        return this.put(`/seguir?id=${idUsuario}`);
+    }
+
     obterInformacoesDoUsuarioLogado() {
         return {
             id: localStorage.getItem('id'),
