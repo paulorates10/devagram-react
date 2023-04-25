@@ -3,7 +3,7 @@ import { useState } from 'react';
 import logoHorizontalImg from '../../public/imagens/logoHorizontal.svg';
 import imagemLupa from '../../public/imagens/lupa.svg';
 import Navegacao from './Navegacao';
-import ResultadoPesquisa from './ResultadoPesquisa';
+import ResultadoPesquisa from '../layout/resultadoPesquisa';
 import UsuarioService from '../../services/UsuarioService';
 import { useRouter } from 'next/router';
 
