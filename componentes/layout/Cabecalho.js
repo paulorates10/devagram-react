@@ -53,7 +53,7 @@ export default function Cabecalho() {
                         onClick={redirecionarParaHome}
                         src={logoHorizontalImg}
                         alt='logo devagram'
-                       
+                        layout='fill'
                     />
                 </div>
 
@@ -62,7 +62,7 @@ export default function Cabecalho() {
                         <Image
                             src={imagemLupa}
                             alt='Icone lupa'
-                            
+                            layout='fill'
                         />
                     </div>
 
@@ -85,7 +85,7 @@ export default function Cabecalho() {
                             nome={r.nome}
                             email={r.email}
                             key={r._id}
-                            id={r._id} // estava id antes
+                            id={r._id}
                             onClick={aoClicarResultadoPesquisa}
                         />
                     ))}

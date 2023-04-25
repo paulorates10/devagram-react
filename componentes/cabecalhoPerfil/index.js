@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
 import imgSetaEsquerda from '../../public/imagens/setaEsquerda.svg';
 import imgLogout from '../../public/imagens/logout.svg';
 import CabecalhoComAcoes from '../cabecalhoComAcoes';
@@ -62,7 +61,7 @@ export default function CabecalhoPerfil({
             );
             setEstaSeguindoOUsuario(!estaSeguindoOUsuario);
         } catch (error) {
-            alert("Erro ao seguir/deixar de seguir!" + error);
+            alert(`Erro ao seguir/deixar de seguir!`);
         }
     }
 

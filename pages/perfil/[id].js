@@ -28,16 +28,17 @@ function Perfil({ usuarioLogado }) {
         return router.query.id === 'eu';
     }
 
-    useEffect(() => {
-        async function a(){
-        if (!router.query.id) {
-            return;
-        }
+    useEffect( () => {
+        async function fetchData() {
+ 
+            if (!router.query.id) {
+                return;
+            }
 
-        const dadosPerfil = await obterPerfil(router.query.id);
-        setUsuario(dadosPerfil);
-    }
-    a();
+            const dadosPerfil = await obterPerfil(router.query.id);
+            setUsuario(dadosPerfil);
+        }
+        fetchData();
     }, [router.query.id]);
 
     return (

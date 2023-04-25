@@ -1,33 +1,29 @@
-.feedContainer{
+.feedContainer {
     padding-bottom: 60px;
     background-color: $branco;
     margin-top: 16px;
 
-    .postagem{
-
-        .avatar{
+    .postagem {
+        .avatar {
             height: 32px;
             width: 32px;
             margin-right: 8px;
         }
-        
-        .cabecalhoPostagem{
+
+        .cabecalhoPostagem {
             display: flex;
             align-items: center;
-            padding: 0px 12px;
+            padding: 0 12px;
             margin-bottom: 8px;
 
-            
-
-            strong{
+            strong {
                 font-size: 12px;
-                color: $cinza4
+                color: $cinza4;
             }
+        }
 
-        }      
-
-        .fotoDaPostagem{
-            img{
+        .fotoDaPostagem {
+            img {
                 width: 100%;
                 height: auto;
                 max-height: 360px;
@@ -35,21 +31,22 @@
             }
         }
 
-        .rodapeDaPostagem{
+        .rodapeDaPostagem {
             padding: 5px 16px;
-            
-            strong.nomeUsuario{
+
+            strong.nomeUsuario {
                 font-size: 12px;
                 float: left;
                 margin-right: 4px;
+                color: $cinza4;
             }
 
-            p.descricao{
+            p.descricao {
                 font-size: 12px;
                 margin: 0 0 2px;
                 color: $cinza4;
 
-                .exibirDescricaoCompleta{
+                .exibirDescricaoCompleta {
                     font-size: 12px;
                     color: $corPrimaria3;
                     margin-left: 4px;
@@ -57,37 +54,40 @@
                 }
             }
 
-            .acoesDaPostagem{
+            .acoesDaPostagem {
                 display: flex;
                 align-items: center;
                 margin-bottom: 6px;
-                
-                >span {
+
+                > span {
                     margin-right: 5px !important;
                 }
-                
-                .quantidaDeCutidas{
+
+                .quantidadeCurtidas {
                     font-family: $fontLight;
                     font-size: 10px;
                     color: $cinza4;
-                    strong{
+
+                    strong {
                         font-size: 10px;
                         color: $cinza4;
                     }
                 }
-
             }
 
+            .comentariosDaPublicacao {
+                max-height: 100px;
+                overflow-y: auto;
+            }
         }
 
-        .containerFazerComentario{
+        .containerFazerComentario {
             display: flex;
             align-items: center;
             padding: 0 12px;
             margin-bottom: 16px;
-            
 
-            textarea{
+            textarea {
                 resize: none;
                 flex: 1;
                 max-width: 100%;
@@ -95,47 +95,42 @@
                 outline: none;
                 font-size: 12px;
                 color: $cinza2;
-
             }
-
-
         }
     }
 
-    @media screen and (min-width: $desktopBreakpoint){
+    @media screen and (min-width: $desktopBreakpoint) {
         padding-top: 8px;
         margin-top: 0px;
 
-        .postagem{
-            
-            .cabecalhoPostagem{
+        .postagem {
+            .cabecalhoPostagem {
                 cursor: pointer;
             }
 
-            .avatar{
+            .avatar {
                 width: 42px;
-                height: 42px;                
+                height: 42px;
             }
-            
 
-            .rodapeDaPostagem{
-                .acoesDaPostagem{
-                    > apan {
+            .rodapeDaPostagem {
+                .acoesDaPostagem {
+                    > span {
                         cursor: pointer;
                     }
                 }
             }
 
-            .containerFazerComentario{
+            .containerFazerComentario {
                 margin-top: 12px;
 
-                .btnPublicacao{
+                .btnPublicacao {
                     background-color: transparent;
                     color: $corPrimaria;
                     outline: none;
                     border: none;
-                    font-size: 12px;       
-                    cursor: pointer;           
+                    font-size: 12px;
+                    cursor: pointer;
                 }
             }
         }
