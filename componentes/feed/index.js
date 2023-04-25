@@ -8,8 +8,9 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
     const [listaDePostagens, setListaDePostagens] = useState([]);
 
     useEffect(() => {
-        setListaDePostagens([]);
-        async function pegarRepos(){
+        async function fetchData() {
+ 
+            setListaDePostagens([]);
             const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
 
             const postagensFormatadas = data.map((postagem) => (
@@ -28,32 +29,27 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
                         mensagem: c.comentario
                     }))
                 }
-            ));               
-        
-            setListaDePostagens(postagensFormatadas);
+            ));
 
+            setListaDePostagens(postagensFormatadas);
         }
-        pegarRepos();
+        fetchData();
     }, [usuarioLogado, usuarioPerfil]);
 
- 
     if (!listaDePostagens.length) {
         return null;
     }
 
     return (
         <div className="feedContainer largura30pctDesktop">
-            {listaDePostagens.length? (
-                listaDePostagens.map(dadosPostagem => (
+            {listaDePostagens.map(dadosPostagem => (
                     <Postagem
                         key={dadosPostagem.id}
                         {...dadosPostagem}
                         usuarioLogado={usuarioLogado}
                     />
                 ))
-            ):(
-                <span> Nenhuma postagem...</span>
-            )}
+            }
         </div>
     )
 }
